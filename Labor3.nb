@@ -1,0 +1,686 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     26584,        676]
+NotebookOptionsPosition[     26335,        663]
+NotebookOutlinePosition[     26683,        678]
+CellTagsIndexPosition[     26640,        675]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"G", "=", "25"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"PopN", "=", "10"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"L", "=", "30"}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+     "\:0412", " ", "\:0445\:0440\:043e\:043c\:043e\:0441\:043e\:043c\:0435", 
+      " ", "L"}], "+", 
+     RowBox[{"1", " ", "\:0433\:0435\:043d\:043e\:0432"}]}], ",", 
+    RowBox[{
+     RowBox[{"\:0442", ".", "\:043a", ".", "\:0432"}], " ", 
+     "\:043f\:043e\:0441\:043b\:0435\:0434\:043d\:0435\:043c", " ", 
+     "\:0431\:0443\:0434\:0435\:043c", " ", 
+     "\:0445\:0440\:0430\:043d\:0438\:0442\:044c", " ", 
+     "\:0437\:043d\:0430\:0447\:0435\:043d\:0438\:0435", " ", 
+     "\:0444\:0438\:0442\:043d\:0435\:0441\:0430"}]}], "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{"Pop", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"Table", "[", 
+      RowBox[{
+       RowBox[{"Random", "[", "Integer", "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"j", ",", "1", ",", 
+         RowBox[{"L", "+", "1"}]}], "}"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", "PopN"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"averageFitness", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{"0", ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "1", ",", "G"}], "}"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"bestFitness", "=", 
+    RowBox[{"Table", "[", 
+     RowBox[{"0", ",", 
+      RowBox[{"{", 
+       RowBox[{"i", ",", "1", ",", "G"}], "}"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\n", 
+ RowBox[{
+  RowBox[{"cP", "=", "1"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"mP", "=", "0.01"}], ";"}], "\n", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "\:0412\:044b\:0447\:0438\:0441\:043b\:044f\:0435\:0442", " ", 
+    "\:0437\:043d\:0430\:0447\:0435\:043d\:0438\:0435", " ", 
+    "\:0444\:0438\:0442\:043d\:0435\:0441\:0430", " ", "\:0434\:043b\:044f", 
+    " ", "\:0432\:0441\:0435\:0439", " ", 
+    "\:043f\:043e\:043f\:0443\:043b\:044f\:0446\:0438\:0438"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "\:0412\:043e\:0437\:0432\:0440\:0430\:0449\:0430\:0435\:0442", " ", 
+     "\:043f\:043e\:043f\:0443\:043b\:044f\:0446\:0438\:044e"}], ",", 
+    RowBox[{
+    "\:0432", " ", "\:043a\:043e\:0442\:043e\:0440\:043e\:0439", " ", 
+     "\:0437\:043d\:0430\:0447\:0435\:043d\:0438\:044f", " ", 
+     "\:0444\:0438\:0442\:043d\:0435\:0441\:0430", " ", "\:0443\:0436\:0435", 
+     " ", "\:0440\:0430\:0441\:0441\:0447\:0438\:0442\:0430\:043d\:044b"}]}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"\:0424\:0438\:0442\:043d\:0435\:0441", "-", 
+     RowBox[{
+     "\:0444\:0443\:043d\:043a\:0446\:0438\:044f", " ", 
+      "\:0440\:0430\:0432\:043d\:0430", " ", "\:0441\:0443\:043c\:043c\:0435",
+       " ", "\:0432\:0441\:0435\:0445", " ", "\:0433\:0435\:043d\:043e\:0432",
+       " ", "\:0432", " ", 
+      "\:0445\:0440\:043e\:043c\:043e\:0441\:043e\:043c\:0435"}]}], ",", 
+    RowBox[{
+    "\:0432\:044b\:0447\:0438\:0441\:043b\:044f\:0435\:0442\:0441\:044f", " ",
+      "\:0441\:0440\:0430\:0437\:0443", " ", "\:0434\:043b\:044f", " ", 
+     "\:0432\:0441\:0435\:0439", " ", 
+     "\:043f\:043e\:043f\:0443\:043b\:044f\:0446\:0438\:0438"}]}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Fitness", "[", "iPop_", "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "f", ",", "i", ",", "j", ",", "popSize", ",", "chromosomeSize", ",", 
+        "currentFitness", ",", "Pop"}], "}"}], ",", 
+      RowBox[{
+       RowBox[{"Pop", "=", "iPop"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"popSize", "=", 
+        RowBox[{"Length", "[", "iPop", "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"chromosomeSize", "=", 
+        RowBox[{
+         RowBox[{"Length", "[", 
+          RowBox[{"iPop", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "]"}], "-", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"i", "=", "1"}], ",", 
+         RowBox[{"i", "\[LessEqual]", "popSize"}], ",", 
+         RowBox[{"i", "++"}], ",", 
+         RowBox[{
+          RowBox[{"currentFitness", "=", "0"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"For", "[", 
+           RowBox[{
+            RowBox[{"j", "=", "1"}], ",", 
+            RowBox[{"j", "\[LessEqual]", "chromosomeSize"}], ",", 
+            RowBox[{"j", "++"}], ",", 
+            RowBox[{
+             RowBox[{"currentFitness", "+=", 
+              RowBox[{"iPop", "[", 
+               RowBox[{"[", 
+                RowBox[{"i", ",", "j"}], "]"}], "]"}]}], ";"}]}], "]"}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Pop", "[", 
+            RowBox[{"[", 
+             RowBox[{"i", ",", 
+              RowBox[{"chromosomeSize", "+", "1"}]}], "]"}], "]"}], "=", 
+           "currentFitness"}], ";"}]}], "]"}], ";", "\[IndentingNewLine]", 
+       "Pop"}]}], "]"}]}], ";"}], "\n", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "\:0412\:044b\:0431\:0438\:0440\:0430\:0435\:0442", " ", "\:0438\:0437", 
+     " ", "\:0432\:0441\:0435\:0439", " ", 
+     "\:043f\:043e\:043f\:0443\:043b\:044f\:0446\:0438\:0438", " ", 
+     "\:043d\:0430\:0431\:043e\:0440\:044b", " ", "\:043f\:0430\:0440", " ", 
+     "\:0434\:043b\:044f", " ", 
+     "\:0441\:043a\:0440\:0435\:0449\:0438\:0432\:0430\:043d\:0438\:044f"}], 
+    ",", 
+    RowBox[{
+    "\:0441\:043e\:0433\:043b\:0430\:0441\:043d\:043e", " ", 
+     "\:0432\:0435\:0440\:043e\:044f\:0442\:043d\:043e\:0441\:0442\:0438", 
+     " ", "\:043a\:0440\:043e\:0441\:0441\:043e\:0432\:0435\:0440\:0430"}]}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "\:0412\:043e\:0437\:0432\:0440\:0430\:0448\:0430\:0435\:0442", " ", 
+     "\:0441\:043f\:0438\:0441\:043e\:043a", " ", "\:043f\:0430\:0440", " ", 
+     "\:0434\:043b\:044f", " ", 
+     "\:0441\:043a\:0440\:0435\:0449\:0438\:0432\:0430\:043d\:0438\:044f"}], 
+    ",", 
+    RowBox[{
+    "\:043a\:0430\:0436\:0434\:044b\:0439", " ", 
+     "\:044d\:043b\:0435\:043c\:0435\:043d\:0442", " ", 
+     "\:043f\:0430\:0440\:044b", " ", "\:0435\:0441\:0442\:044c", " ", "ID", 
+     " ", "\:0445\:0440\:043e\:043c\:043e\:0441\:043e\:043c\:044b", " ", 
+     "\:0432", " ", 
+     "\:043f\:043e\:043f\:0443\:043b\:044f\:0446\:0438\:0438"}]}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "\:0412", " ", "\:0434\:0430\:043d\:043d\:043e\:043c", " ", 
+     "\:0441\:043b\:0443\:0447\:0430\:0435", " ", 
+     "\:043f\:0430\:0440\:0442\:043d\:0451\:0440", " ", 
+     "\:0432\:044b\:0431\:0438\:0440\:0430\:0435\:0442\:0441\:044f", " ", 
+     "\:0441\:043b\:0443\:0447\:0430\:0439\:043d\:043e"}], ",", 
+    RowBox[{
+    "\:0431\:0435\:0437", " ", "\:043e\:0446\:0435\:043d\:043a\:0438"}]}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"RndBreeding", "[", 
+     RowBox[{"iPop_", ",", "cP_"}], "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"matingPool", ",", "i", ",", "doLoop", ",", "mateId"}], "}"}], 
+      ",", 
+      RowBox[{
+       RowBox[{"matingPool", "=", 
+        RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"i", "=", "1"}], ",", 
+         RowBox[{"i", "\[LessEqual]", 
+          RowBox[{"Length", "[", "iPop", "]"}]}], ",", 
+         RowBox[{"i", "++"}], ",", 
+         RowBox[{
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Random", "[", "]"}], ">", "cP"}], ",", 
+            RowBox[{"Continue", "[", "]"}]}], "]"}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"doLoop", "=", "True"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"While", "[", 
+           RowBox[{"doLoop", ",", 
+            RowBox[{
+             RowBox[{"mateId", "=", 
+              RowBox[{
+               RowBox[{"Round", "[", 
+                RowBox[{
+                 RowBox[{"Random", "[", "]"}], "*", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"Length", "[", "iPop", "]"}], "-", "1"}], ")"}]}], 
+                "]"}], "+", "1"}]}], ";", "\[IndentingNewLine]", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{"mateId", "\[Equal]", "i"}], ",", 
+               RowBox[{"doLoop", "=", "True"}], ",", 
+               RowBox[{"doLoop", "=", "False"}]}], "]"}], ";"}]}], "]"}], ";",
+           "\[IndentingNewLine]", 
+          RowBox[{"matingPool", "=", 
+           RowBox[{"Append", "[", 
+            RowBox[{"matingPool", ",", 
+             RowBox[{"{", 
+              RowBox[{"i", ",", "mateId"}], "}"}]}], "]"}]}], ";"}]}], "]"}], 
+       ";", "\[IndentingNewLine]", "matingPool"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "\:0421\:043a\:0440\:0435\:0449\:0438\:0432\:0430\:0435\:0442", " ", 
+    "\:043e\:0442\:043e\:0431\:0440\:0430\:043d\:043d\:044b\:0445", " ", 
+    "\:043f\:0440\:043e\:0438\:0437\:0432\:043e\:0434\:0438\:0442\:0435\:043b\
+\:0435\:0439", " ", "\:0438", " ", 
+    "\:0434\:043e\:043f\:0438\:0441\:044b\:0432\:0430\:0435\:0442", " ", 
+    "\:0438\:0445", " ", "\:043f\:043e\:0442\:043e\:043c\:043a\:043e\:0432", 
+    " ", "\:0432", " ", "\:043a\:043e\:043d\:0435\:0446", " ", 
+    "\:043f\:043e\:043f\:0443\:043b\:044f\:0446\:0438\:0438"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "\:0412\:043e\:0437\:0432\:0440\:0430\:0449\:0430\:0435\:0442", " ", 
+    "\:043d\:043e\:0432\:0443\:044e", " ", 
+    "\:043f\:043e\:043f\:0443\:043b\:044f\:0446\:0438\:044e", " ", 
+    "\:0443\:0432\:0435\:043b\:0438\:0447\:0435\:043d\:043d\:043e\:0433\:043e\
+", " ", "\:0440\:0430\:0437\:043c\:0435\:0440\:0430"}], "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Crossover1P", "[", 
+     RowBox[{"iBreeders_", ",", "iPop_"}], "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "Pop", ",", "i", ",", "parent1", ",", "parent2", ",", "breakPoint", 
+        ",", "offspring1", ",", "offspring2", ",", "j"}], "}"}], ",", 
+      RowBox[{
+       RowBox[{"Pop", "=", "iPop"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"chromosomeSize", "=", 
+        RowBox[{
+         RowBox[{"Length", "[", 
+          RowBox[{"iPop", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "]"}], "-", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"i", "=", "1"}], ",", 
+         RowBox[{"i", "\[LessEqual]", 
+          RowBox[{"Length", "[", "iBreeders", "]"}]}], ",", 
+         RowBox[{"i", "++"}], ",", 
+         RowBox[{
+          RowBox[{"parent1", "=", 
+           RowBox[{"iBreeders", "[", 
+            RowBox[{"[", 
+             RowBox[{"i", ",", "1"}], "]"}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"parent2", "=", 
+           RowBox[{"iBreeders", "[", 
+            RowBox[{"[", 
+             RowBox[{"i", ",", "2"}], "]"}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"breakPoint", "=", 
+           RowBox[{
+            RowBox[{"Round", "[", 
+             RowBox[{
+              RowBox[{"Random", "[", "]"}], "*", 
+              RowBox[{"(", 
+               RowBox[{"chromosomeSize", "-", "1"}], ")"}]}], "]"}], "+", 
+            "1"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"offspring1", "=", 
+           RowBox[{"Table", "[", 
+            RowBox[{"0", ",", 
+             RowBox[{"{", 
+              RowBox[{"j", ",", "1", ",", 
+               RowBox[{"L", "+", "1"}]}], "}"}]}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"offspring2", "=", 
+           RowBox[{"Table", "[", 
+            RowBox[{"0", ",", 
+             RowBox[{"{", 
+              RowBox[{"j", ",", "1", ",", 
+               RowBox[{"L", "+", "1"}]}], "}"}]}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"For", "[", 
+           RowBox[{
+            RowBox[{"j", "=", "1"}], ",", 
+            RowBox[{"j", "\[LessEqual]", "chromosomeSize"}], ",", 
+            RowBox[{"j", "++"}], ",", 
+            RowBox[{
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{"j", "\[LessEqual]", "breakPoint"}], ",", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"offspring1", "[", 
+                  RowBox[{"[", "j", "]"}], "]"}], "=", 
+                 RowBox[{"iPop", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"parent1", ",", "j"}], "]"}], "]"}]}], ";", 
+                RowBox[{
+                 RowBox[{"offspring2", "[", 
+                  RowBox[{"[", "j", "]"}], "]"}], "=", 
+                 RowBox[{"iPop", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"parent2", ",", "j"}], "]"}], "]"}]}]}], ",", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"offspring1", "[", 
+                  RowBox[{"[", "j", "]"}], "]"}], "=", 
+                 RowBox[{"iPop", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"parent2", ",", "j"}], "]"}], "]"}]}], ";", 
+                RowBox[{
+                 RowBox[{"offspring2", "[", 
+                  RowBox[{"[", "j", "]"}], "]"}], "=", 
+                 RowBox[{"iPop", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"parent1", ",", "j"}], "]"}], "]"}]}]}]}], "]"}], 
+             ";"}]}], "]"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"Pop", "=", 
+           RowBox[{"Append", "[", 
+            RowBox[{"Pop", ",", "offspring1"}], "]"}]}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"Pop", "=", 
+           RowBox[{"Append", "[", 
+            RowBox[{"Pop", ",", "offspring2"}], "]"}]}], ";"}]}], "]"}], ";", 
+       "\[IndentingNewLine]", "Pop"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "\:041f\:043e\:0434\:0432\:0435\:0440\:0433\:0430\:0435\:0442", " ", 
+    "\:0432\:0441\:044e", " ", 
+    "\:043f\:043e\:043f\:0443\:043b\:044f\:0446\:0438\:044e", " ", 
+    "\:043c\:0443\:0442\:0430\:0446\:0438\:0438", " ", "\:0441", " ", 
+    "\:0432\:0435\:0440\:043e\:044f\:0442\:043d\:043e\:0441\:0442\:044c\:044e\
+", " ", "mP"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "\:0412\:043e\:0437\:0432\:0440\:0430\:0449\:0430\:0435\:0442", " ", 
+     "\:0441\:043f\:0438\:0441\:043e\:043a"}], "-", 
+    RowBox[{
+    "\:043d\:043e\:0432\:0443\:044e", " ", 
+     "\:043c\:0443\:0442\:0438\:0440\:043e\:0432\:0430\:0432\:0448\:0443\:044e\
+", " ", "\:043f\:043e\:043f\:0443\:043b\:044f\:0446\:0438\:044e"}]}], 
+   "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Mutation", "[", 
+     RowBox[{"iPop_", ",", "mP_"}], "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"Pop", ",", "chromosomeLength", ",", "i", ",", "j"}], "}"}], 
+      ",", 
+      RowBox[{
+       RowBox[{"Pop", "=", "iPop"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"chromosomeLength", "=", 
+        RowBox[{
+         RowBox[{"Length", "[", 
+          RowBox[{"Pop", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "]"}], "-", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"i", "=", "1"}], ",", 
+         RowBox[{"i", "\[LessEqual]", 
+          RowBox[{"Length", "[", "iPop", "]"}]}], ",", 
+         RowBox[{"i", "++"}], ",", 
+         RowBox[{
+          RowBox[{"For", "[", 
+           RowBox[{
+            RowBox[{"j", "=", "1"}], ",", 
+            RowBox[{"j", "\[LessEqual]", "chromosomeLength"}], ",", 
+            RowBox[{"j", "++"}], ",", 
+            RowBox[{
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"Random", "[", "]"}], ">", "mP"}], ",", 
+               RowBox[{"Continue", "[", "]"}]}], "]"}], ";", 
+             "\[IndentingNewLine]", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"Pop", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"i", ",", "j"}], "]"}], "]"}], "\[Equal]", "0"}], 
+               ",", 
+               RowBox[{
+                RowBox[{"Pop", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"i", ",", "j"}], "]"}], "]"}], "=", "1"}], ",", 
+               RowBox[{
+                RowBox[{"Pop", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"i", ",", "j"}], "]"}], "]"}], "=", "0"}]}], "]"}], 
+             ";"}]}], "]"}], ";"}]}], "]"}], ";", "\[IndentingNewLine]", 
+       "Pop"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "\:041e\:0441\:0443\:0449\:0435\:0441\:0442\:0432\:043b\:044f\:0435\:0442",
+     " ", "\:0444\:0438\:043b\:044c\:0442\:0440\:0430\:0446\:0438\:044e", " ",
+     "\:043f\:043e\:043f\:0443\:043b\:044f\:0446\:0438\:0438", " ", 
+    "\:043f\:043e", " ", 
+    "\:043f\:0440\:0438\:043d\:0446\:0438\:043f\:0430\:043c", " ", 
+    "\:0435\:0441\:0442\:0435\:0441\:0442\:0432\:0435\:043d\:043d\:043e\:0433\
+\:043e", " ", "\:043e\:0442\:0431\:043e\:0440\:0430"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "\:0412\:043e\:0437\:0432\:0440\:0430\:0449\:0430\:0435\:0442", " ", 
+     "\:043d\:043e\:0432\:0443\:044e", " ", 
+     "\:043f\:043e\:043f\:0443\:043b\:044f\:0446\:0438\:044e", " ", 
+     "\:0443\:043c\:0435\:043d\:044c\:0448\:0435\:043d\:043d\:043e\:0433\:043e\
+", " ", "\:0440\:0430\:0437\:043c\:0435\:0440\:0430"}], ",", 
+    RowBox[{
+     RowBox[{
+     "\:043f\:043e\:043b\:0443\:0447\:0435\:043d\:043d\:0443\:044e", " ", 
+      "\:043f\:043e", " ", 
+      "\:0442\:0443\:0440\:043d\:0438\:0440\:043d\:043e\:0439", " ", 
+      "\:0441\:0435\:043b\:0435\:043a\:0446\:0438\:0438", " ", "\:0441", " ", 
+      "\:0440\:0430\:0437\:043c\:0435\:0440\:043e\:043c", " ", 
+      "\:043f\:0443\:043b\:0430", " ", 
+      "\:043e\:0442\:0431\:043e\:0440\:0430"}], "=", "3"}]}], "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Selection", "[", "iPop_", "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "Pop", ",", "poolSize", ",", "newPopSize", ",", "newPop", ",", "i", 
+        ",", "j", ",", "pool", ",", "rndIndex", ",", "maxFitness", ",", 
+        "bestItemId"}], "}"}], ",", 
+      RowBox[{
+       RowBox[{"Pop", "=", "iPop"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"poolSize", "=", "3"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"chromosomeSize", "=", 
+        RowBox[{
+         RowBox[{"Length", "[", 
+          RowBox[{"iPop", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "]"}], "-", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"newPopSize", "=", 
+        RowBox[{
+         RowBox[{"Length", "[", "iPop", "]"}], "/", "poolSize"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"newPop", "=", 
+        RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"i", "=", "1"}], ",", 
+         RowBox[{"i", "\[LessEqual]", "newPopSize"}], ",", 
+         RowBox[{"i", "++"}], ",", 
+         RowBox[{
+          RowBox[{"pool", "=", 
+           RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"For", "[", 
+           RowBox[{
+            RowBox[{"j", "=", "1"}], ",", 
+            RowBox[{"j", "\[LessEqual]", "poolSize"}], ",", 
+            RowBox[{"j", "++"}], ",", 
+            RowBox[{
+             RowBox[{"rndIndex", "=", 
+              RowBox[{
+               RowBox[{"Round", "[", 
+                RowBox[{
+                 RowBox[{"Random", "[", "]"}], "*", 
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"Length", "[", "Pop", "]"}], "-", "1"}], ")"}]}], 
+                "]"}], "+", "1"}]}], ";", "\[IndentingNewLine]", 
+             RowBox[{"pool", "=", 
+              RowBox[{"Append", "[", 
+               RowBox[{"pool", ",", 
+                RowBox[{"Pop", "[", 
+                 RowBox[{"[", "rndIndex", "]"}], "]"}]}], "]"}]}], ";", 
+             "\[IndentingNewLine]", 
+             RowBox[{"Pop", "=", 
+              RowBox[{"Delete", "[", 
+               RowBox[{"Pop", ",", "rndIndex"}], "]"}]}], ";"}]}], "]"}], ";",
+           "\[IndentingNewLine]", 
+          RowBox[{"maxFitness", "=", "0"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"bestItemId", "=", "1"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"For", "[", 
+           RowBox[{
+            RowBox[{"j", "=", "1"}], ",", 
+            RowBox[{"j", "\[LessEqual]", "poolSize"}], ",", 
+            RowBox[{"j", "++"}], ",", 
+            RowBox[{
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"pool", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"j", ",", 
+                   RowBox[{"chromosomeSize", "+", "1"}]}], "]"}], "]"}], ">", 
+                "maxFitness"}], ",", 
+               RowBox[{
+                RowBox[{"bestItemId", "=", "j"}], ";", 
+                RowBox[{"maxFitness", "=", 
+                 RowBox[{"pool", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"j", ",", 
+                    RowBox[{"chromosomeSize", "+", "1"}]}], "]"}], 
+                  "]"}]}]}]}], "]"}], ";"}]}], "]"}], ";", 
+          "\[IndentingNewLine]", 
+          RowBox[{"newPop", "=", 
+           RowBox[{"Append", "[", 
+            RowBox[{"newPop", ",", 
+             RowBox[{"pool", "[", 
+              RowBox[{"[", "bestItemId", "]"}], "]"}]}], "]"}]}], ";"}]}], 
+        "]"}], ";", "\[IndentingNewLine]", "newPop"}]}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"LogFitness", "[", "iPop_", "]"}], ":=", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "i", ",", "averageFitness", ",", "bestFitness", ",", 
+        "chromosomeSize"}], "}"}], ",", 
+      RowBox[{
+       RowBox[{"averageFitness", "=", "0"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"bestFitness", "=", "0"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"chromosomeSize", "=", 
+        RowBox[{
+         RowBox[{"Length", "[", 
+          RowBox[{"iPop", "[", 
+           RowBox[{"[", "1", "]"}], "]"}], "]"}], "-", "1"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"i", "=", "1"}], ",", 
+         RowBox[{"i", "\[LessEqual]", 
+          RowBox[{"Length", "[", "iPop", "]"}]}], ",", 
+         RowBox[{"i", "++"}], ",", 
+         RowBox[{
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"iPop", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", ",", 
+                RowBox[{"chromosomeSize", "+", "1"}]}], "]"}], "]"}], ">", 
+             "bestFitness"}], ",", 
+            RowBox[{"bestFitness", "=", 
+             RowBox[{"iPop", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", ",", 
+                RowBox[{"chromosomeSize", "+", "1"}]}], "]"}], "]"}]}]}], 
+           "]"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"averageFitness", "+=", 
+           RowBox[{"iPop", "[", 
+            RowBox[{"[", 
+             RowBox[{"i", ",", 
+              RowBox[{"chromosomeSize", "+", "1"}]}], "]"}], "]"}]}], ";"}]}],
+         "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"bestFitness", ",", 
+         RowBox[{"averageFitness", "/", 
+          RowBox[{"Length", "[", "iPop", "]"}]}]}], "}"}]}]}], "]"}]}], ";"}],
+   "\[IndentingNewLine]"}], "\n", 
+ RowBox[{
+  RowBox[{"Pop", "=", 
+   RowBox[{"Fitness", "[", "Pop", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"For", "[", 
+   RowBox[{
+    RowBox[{"generation", "=", "1"}], ",", 
+    RowBox[{"generation", "\[LessEqual]", "G"}], ",", 
+    RowBox[{"generation", "++"}], ",", 
+    RowBox[{"(*", 
+     RowBox[{
+      RowBox[{"Print", "[", 
+       RowBox[{"\"\<generation #\>\"", "<>", 
+        RowBox[{"ToString", "[", "generation", "]"}], "<>", "\"\<\\n\>\""}], 
+       "]"}], ";"}], "*)"}], 
+    RowBox[{
+     RowBox[{"matingPool", "=", 
+      RowBox[{"RndBreeding", "[", 
+       RowBox[{"Pop", ",", "cP"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Pop", "=", 
+      RowBox[{"Crossover1P", "[", 
+       RowBox[{"matingPool", ",", "Pop"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Pop", "=", 
+      RowBox[{"Mutation", "[", 
+       RowBox[{"Pop", ",", "mP"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Pop", "=", 
+      RowBox[{"Fitness", "[", "Pop", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Pop", "=", 
+      RowBox[{"Selection", "[", "Pop", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"f", "=", 
+      RowBox[{"LogFitness", "[", "Pop", "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"averageFitness", "[", 
+       RowBox[{"[", "generation", "]"}], "]"}], "=", 
+      RowBox[{"f", "[", 
+       RowBox[{"[", "2", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"bestFitness", "[", 
+       RowBox[{"[", "generation", "]"}], "]"}], "=", 
+      RowBox[{"f", "[", 
+       RowBox[{"[", "1", "]"}], "]"}]}], ";"}]}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ListPlot", "[", 
+   RowBox[{"bestFitness", ",", 
+    RowBox[{"{", 
+     RowBox[{"PlotJoined", "\[Rule]", "True"}], "}"}]}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ListPlot", "[", 
+   RowBox[{"averageFitness", ",", 
+    RowBox[{"{", 
+     RowBox[{"PlotJoined", "\[Rule]", "True"}], "}"}]}], "]"}], 
+  ";"}]}], "Input"]
+},
+WindowSize->{1366, 685},
+WindowMargins->{{Automatic, 82}, {130, Automatic}},
+FrontEndVersion->"10.0 for Microsoft Windows (64-bit) (September 9, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 25773, 641, 1872, "Input"]
+}
+]
+*)
+
+(* End of internal cache information *)
+
